@@ -15,8 +15,8 @@ BEB_MONGODB_URI='your mongodb uri such as mongodb://localhost:27017/mydbname'
 4. Run frontend application
 ```
 cd bulk-email-processor
-npm install
 cd frontend
+npm install
 npm run start
 ```
 5. In new terminal inside bulk-email-processor directory 
