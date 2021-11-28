@@ -1,6 +1,6 @@
 import React from 'react';
-import { withRouter } from "react-router-dom";
-import { ACCESS_TOKEN_NAME } from '../../constants/apiConstants';
+import { NavLink, withRouter } from "react-router-dom";
+import axios from 'axios'
 
 const Header = (props) => {
     const capitalize = (s) => {
@@ -21,8 +21,15 @@ const Header = (props) => {
         }
     }
     const handleLogout = () => {
-        localStorage.removeItem(ACCESS_TOKEN_NAME)
-        props.history.push('/login')
+        axios.get(process.env.REACT_APP_SERVER_URL + '/api/logout', { withCredentials: true})
+        .then( (response) => {
+          if (response.status === 200) {
+            
+            props.history.push('/login')
+          }
+        })
+        .catch(function (error) {
+        });
     }
     return (
         <nav className="navbar navbar-dark bg-primary">
@@ -30,6 +37,8 @@ const Header = (props) => {
                 <span className="h3">{props.title || title}</span>
                 {renderLogout()}
             </div>
+            <NavLink to="/register" ><button className="btn btn-secondary">Register</button></NavLink>
+            <NavLink  to="/login"><button className="btn btn-secondary">Login</button></NavLink>
         </nav>
     )
 }

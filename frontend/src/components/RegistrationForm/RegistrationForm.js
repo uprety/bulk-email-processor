@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './RegistrationForm.css';
-import { API_BASE_URL, ACCESS_TOKEN_NAME } from '../../constants/apiConstants';
 import { withRouter } from "react-router-dom";
 
 const RegistrationForm = (props) => {
     const [state, setState] = useState({
+        username: "",
         email: "",
         password: "",
         confirmPassword: "",
-        successMessage: null
+        comment: null,
+
     })
     const handleChange = (e) => {
         const { id, value } = e.target
@@ -22,34 +23,31 @@ const RegistrationForm = (props) => {
         if (state.email.length && state.password.length) {
             props.showError(null);
             const payload = {
+                "username": state.username,
                 "email": state.email,
                 "password": state.password,
             }
-            axios.post(API_BASE_URL + '/user/register', payload)
-                .then(function (response) {
+            axios.post(`${process.env.REACT_APP_SERVER_URL}/api/signup`, payload, { withCredentials: true })
+                .then((response) => {
                     if (response.status === 200) {
                         setState(prevState => ({
                             ...prevState,
-                            'successMessage': 'Registration successful. Redirecting to home page..'
+                            // 'comment': 'Registration successful. Redirecting to home page..'
+                            comment: response.data.comment
                         }))
-                        localStorage.setItem(ACCESS_TOKEN_NAME, response.data.token);
-                        redirectToHome();
+                        redirectToLogin();
                         props.showError(null)
                     } else {
                         props.showError("Some error ocurred");
                     }
                 })
                 .catch(function (error) {
-                    console.log(error);
+                    props.showError(error.response.data.comment);
                 });
         } else {
             props.showError('Please enter valid username and password')
         }
 
-    }
-    const redirectToHome = () => {
-        props.updateTitle('Home')
-        props.history.push('/home');
     }
     const redirectToLogin = () => {
         props.updateTitle('Login')
@@ -77,6 +75,16 @@ const RegistrationForm = (props) => {
                         onChange={handleChange}
                     />
                     <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+                <div className="form-group text-left">
+                    <label htmlFor="Enter username">Username</label>
+                    <input type="text"
+                        className="form-control"
+                        id="username"
+                        placeholder="Usrname"
+                        value={state.username}
+                        onChange={handleChange}
+                    />
                 </div>
                 <div className="form-group text-left">
                     <label htmlFor="exampleInputPassword1">Password</label>
@@ -108,10 +116,6 @@ const RegistrationForm = (props) => {
             </form>
             <div className="alert alert-success mt-2" style={{ display: state.successMessage ? 'block' : 'none' }} role="alert">
                 {state.successMessage}
-            </div>
-            <div className="mt-2">
-                <span>Already have an account? </span>
-                <span className="loginText" onClick={() => redirectToLogin()}>Login here</span>
             </div>
         </div>
     )
