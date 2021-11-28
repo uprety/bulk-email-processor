@@ -6,7 +6,7 @@ const SendTokenEmail = require('../utility/SendTokenEmail')
 const UserModel = require('../models/UserModel');
 
 exports.SignUp = async (req, res)  => {
-    const {username, email, password, host} = req.body
+    const {username, email, password} = req.body
 
     // check if email already present in UserModel
     let user = await UserModel.findOne({email})
@@ -16,7 +16,7 @@ exports.SignUp = async (req, res)  => {
         // save the user in EmailToken with token untill verification
         const hashedPwd = await bcrypt.hash(password, 10);
         const token = uuid()
-        const tokenURL = `${host}/api/verify-email/${token}`
+        const tokenURL = `${process.env.BEP_SERVER_URL}/api/verify-email/${token}`
         user = new EmailTokenModel({
             token: token,
             username,
@@ -52,7 +52,7 @@ exports.SignIn = async (req, res) => {
 
 exports.SignOut = async (req, res) => {
     if (req.session.email) {
-        delete req.session.email
+        req.session.destroy()
         res.json({"isSuccess": true, "comment": "Logout Success"})
     } else {
         res.json({"isSuccess": true, "comment": "Already Logged Out"})
@@ -81,6 +81,6 @@ exports.VerifyEmail = async (req, res) => {
     )
 }
 
-exports.SendMailTask = async (req, res) => {
-    res.json({"isSuccess": true, "comment": "Send Mail Task Successfull"})
+exports.isSendAllowed = async (req, res) => {
+    res.json({"isSuccess": true, "comment": "Authorized to send buld email"})
 }
