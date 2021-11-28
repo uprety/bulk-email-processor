@@ -1,22 +1,24 @@
 import React from 'react';
 import { Redirect, Route } from "react-router-dom";
-import { ACCESS_TOKEN_NAME } from '../constants/apiConstants';
+
+// Request server to verify the cookies and allow to get to dashboard
 
 const PrivateRoute = ({ children, ...rest }) => {
   return (
     <Route
       {...rest}
       render={({ location }) =>
-        localStorage.getItem(ACCESS_TOKEN_NAME) ? (
+        // // check send-mail-is-authorized
+        // localStorage.getItem(ACCESS_TOKEN_NAME) ? (
           children
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/login",
-              state: { from: location }
-            }}
-          />
-        )
+        // ) : (
+        //   <Redirect
+        //     to={{
+        //       pathname: "/login",
+        //       state: { from: location }
+        //     }}
+        //   />
+        // )
       }
     />
   );

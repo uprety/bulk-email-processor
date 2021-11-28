@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './LoginForm.css';
-import { API_BASE_URL, ACCESS_TOKEN_NAME } from '../../constants/apiConstants';
 import { withRouter } from "react-router-dom";
 
 const LoginForm = (props) => {
@@ -24,14 +23,14 @@ const LoginForm = (props) => {
             "email": state.email,
             "password": state.password,
         }
-        axios.post(API_BASE_URL + '/user/login', payload)
+        axios.post(process.env.REACT_APP_SERVER_URL + '/api/signin', payload, {withCredentials: true})
             .then(function (response) {
                 if (response.status === 200) {
                     setState(prevState => ({
                         ...prevState,
                         'successMessage': 'Login successful. Redirecting to home page..'
                     }))
-                    localStorage.setItem(ACCESS_TOKEN_NAME, response.data.token);
+                    // localStorage.setItem(ACCESS_TOKEN_NAME, response.data.token);
                     redirectToHome();
                     props.showError(null)
                 }
@@ -43,16 +42,13 @@ const LoginForm = (props) => {
                 }
             })
             .catch(function (error) {
+                props.showError(error.response.data.comment);
                 console.log(error);
             });
     }
     const redirectToHome = () => {
-        props.updateTitle('Home')
+        props.updateTitle('Send Bulk Mail Home')
         props.history.push('/home');
-    }
-    const redirectToRegister = () => {
-        props.history.push('/register');
-        props.updateTitle('Register');
     }
     return (
         <div className="card col-12 col-lg-4 login-card mt-2 hv-center">
@@ -89,10 +85,6 @@ const LoginForm = (props) => {
             </form>
             <div className="alert alert-success mt-2" style={{ display: state.successMessage ? 'block' : 'none' }} role="alert">
                 {state.successMessage}
-            </div>
-            <div className="registerMessage">
-                <span>Dont have an account? </span>
-                <span className="loginText" onClick={() => redirectToRegister()}>Register</span>
             </div>
         </div>
     )

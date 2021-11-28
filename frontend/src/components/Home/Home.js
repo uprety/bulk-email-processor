@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
 import { withRouter } from 'react-router-dom';
-import { ACCESS_TOKEN_NAME, API_BASE_URL } from '../../constants/apiConstants';
 import axios from 'axios'
 
 const Home = (props) => {
   useEffect(() => {
-    axios.get(API_BASE_URL + '/user/me', { headers: { 'token': localStorage.getItem(ACCESS_TOKEN_NAME) } })
-      .then(function (response) {
+    axios.get(process.env.REACT_APP_SERVER_URL + '/api/am-I-allowed-to-send-mail', { withCredentials: true})
+      .then( (response) => {
         if (response.status !== 200) {
           redirectToLogin()
         }
@@ -20,7 +19,9 @@ const Home = (props) => {
   }
   return (
     <div className="mt-2">
-      Home page content
+    This is the bulk email send system 
+    TODO: 1. Upload email recipient excel file, choose email template, send mail 
+    then show logs in real time. This is much more simple than complicated.
     </div>
   )
 }
