@@ -2,7 +2,7 @@ const express = require('express')
 const apiRouter = express.Router()
 const {IsAuth} = require('../middleware/IsAuth')
 
-const {SignUp, SignIn, SignOut, VerifyEmail, SendMailTask} = require('../controllers/UserController')
+const {SignUp, SignIn, SignOut, VerifyEmail, isSendAllowed} = require('../controllers/UserController')
 
 // ------Handling user login process----------
 
@@ -15,13 +15,11 @@ apiRouter.post('/signin', SignIn)
 // Routes for logout
 apiRouter.get('/logout', SignOut)
 
-
 // Routes for veryfying email token
 apiRouter.get('/verify-email/:verificationToken', VerifyEmail)
 
-// Routes for adding bulk email id
-apiRouter.get('/send-mail-task', IsAuth, SendMailTask)
-// Routes for sending bulk email
-// Routes for getting history
+// Replying to reques if the it is authorized
+apiRouter.get('/am-I-allowed-to-send-mail', IsAuth, isSendAllowed)
+
 
 module.exports = apiRouter
