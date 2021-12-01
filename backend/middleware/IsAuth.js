@@ -1,5 +1,4 @@
 exports.IsAuth = async (req, res, next) => {
-    console.log(req.se)
     if (await req.session.email) {
         next()
     } else {

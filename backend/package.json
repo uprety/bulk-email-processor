@@ -6,9 +6,9 @@
   "description": "A backend for handling processing a bulk of email",
   "main": "index.js",
   "scripts": {
-    "devStart": "nodemon app.js",
-    "start": "node app.js",
-    "testmail": "node nodemailer.js",
+    "start": "nodemon app.js",
+    "startProd": "node app.js",
+    "seed": "cd mailTemplate && node AddTemplateMailToDatabase.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "license": "ISC",
