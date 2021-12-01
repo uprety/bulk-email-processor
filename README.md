@@ -11,6 +11,14 @@ This is a webapp fo sending email to bulk email receipants present in excel file
 BEP_ENV='development or production'
 BEP_SESSION_SECRET='a long random characters'
 BEB_MONGODB_URI='your mongodb uri such as mongodb://localhost:27017/mydbname'
+BEP_SERVER_URL="http://localhost:3333"
+
+BEP_MAILTRAP_HOST="smtp.mailtrap.io for mailtrap"
+BEP_MAILTRAP_USERNAME="264f1e1559d20d"
+BEP_MAILTRAP_PASSWORD="1a9cacb884f386"
+BEP_CLIENT_HOST="localhsot:3333"
+
+REACT_APP_SERVER_URL="http://localhost:3333"
 ```
 4. Run frontend application
 ```
