@@ -4,7 +4,6 @@ const MongoStore = require('connect-mongo') // For session purpose only
 const session = require('express-session'); // For session middleware
 const cors = require('cors')
 
-const UserModel = require('./models/UserModel')
 const apiRoutes = require('./routes/apiRoute')
 
 const app = express()
