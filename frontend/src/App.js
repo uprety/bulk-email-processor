@@ -22,7 +22,7 @@ const App = () => {
             <Route path="/" exact={true}> <RegistrationForm showError={updateErrorMessage} updateTitle={updateTitle} /> </Route>
             <Route path="/register"> <RegistrationForm showError={updateErrorMessage} updateTitle={updateTitle} /> </Route>
             <Route path="/login"> <LoginForm showError={updateErrorMessage} updateTitle={updateTitle} /> </Route>
-            <PrivateRoute path="/home"> <Home /> </PrivateRoute>
+            <PrivateRoute path="/home"> <Home  showError={updateErrorMessage}/> </PrivateRoute>
           </Switch>
           <AlertComponent errorMessage={errorMessage} hideError={updateErrorMessage} />
         </div>

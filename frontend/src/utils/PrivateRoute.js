@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 
 // Request server to verify the cookies and allow to get to dashboard
 
