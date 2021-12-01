@@ -38,6 +38,7 @@ const Header = (props) => {
                 {renderLogout()}
             </div>
             <NavLink to="/register" ><button className="btn btn-secondary">Register</button></NavLink>
+            <NavLink to="/home" ><button className="btn btn-secondary">Home</button></NavLink>
             <NavLink  to="/login"><button className="btn btn-secondary">Login</button></NavLink>
         </nav>
     )
