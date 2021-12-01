@@ -5,7 +5,7 @@ const EmailTokenModel = require('../models/EmailTokenModel');
 const SendTokenEmail = require('../sendMail/SendTokenEmail')
 const UserModel = require('../models/UserModel');
 const MailTemplateSchema = require('../models/MailTemplate')
-const SendMail = require('../sendMail/SendBulkMail')
+const SendBulkMailQueueJob = require('../sendMail/SendBulkMailQueueJob')
 
 exports.SignUp = async (req, res) => {
     const { username, email, password } = req.body
@@ -103,7 +103,7 @@ exports.ProcessMailJobs = async (req, res) => {
             if (err) {
                 res.status(404).json({ "isSuccess": false, "comment": "Tempalte Not Found in Database." })
             } else {
-                SendMail(mailTemplate._doc, body.recipients, req.session.email)
+                SendBulkMailQueueJob(mailTemplate._doc, body.recipients, req.session.email)
                 res.json({ "isSuccess": true, "comment": "Successful Received the Task" })
             }
         }
