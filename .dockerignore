@@ -1,18 +1,19 @@
 *.env
 .vscode
-/node_modules
+**/node_modules
 
 # From frontend
 # dependencies
-/node_modules
-/.pnp
+**/node_modules
+**/.pnp
 .pnp.js
 
 # testing
-/coverage
+**/coverage
+**/.git
 
 # production
-build/
+**/build/
 
 # misc
 .DS_Store
