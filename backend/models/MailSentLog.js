@@ -2,8 +2,7 @@ const mongoose = require('mongoose')
 
 const mailSentLogSchema = new mongoose.Schema({
     email: {
-        type: mongoose.Schema.Types.ObjectId, 
-        ref: 'User'
+        type: String, 
     },
     logs: {
         type: [String],

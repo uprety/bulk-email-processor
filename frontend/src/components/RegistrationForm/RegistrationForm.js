@@ -32,7 +32,6 @@ const RegistrationForm = (props) => {
                     if (response.status === 200) {
                         setState(prevState => ({
                             ...prevState,
-                            // 'comment': 'Registration successful. Redirecting to home page..'
                             comment: response.data.comment
                         }))
                         redirectToLogin();
@@ -42,7 +41,7 @@ const RegistrationForm = (props) => {
                     }
                 })
                 .catch(function (error) {
-                    props.showError(error.response.data.comment);
+                    props.showError('Server error');
                 });
         } else {
             props.showError('Please enter valid username and password')

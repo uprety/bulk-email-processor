@@ -1,0 +1,43 @@
+const bcrypt = require('bcrypt')
+const { v4: uuid } = require('uuid')
+
+const UserModel = require('../models/UserModel');
+const transporter = require('../sendMail/config/transporter');
+const MailSentLog = require('../models/MailSentLog')
+
+
+const ProcessSingleEmail = (io) => {
+    return async(req, res) => {
+        req.session.email
+        const mail = req.body
+        
+
+        // Comlete the mail task
+        transporter.sendMail(mail, (error, info) => {
+            if (!error && info) {
+                const mailSentStatus = `Message sent from ${info.envelope.from} to ${info.envelope.to}. With response code: ${info.response}`;
+
+
+                MailSentLog.findOneAndUpdate(
+                    { email: mail.initiator },   // query
+                    { $push: { logs: mailSentStatus } },  // update
+                    { upsert: true, new: true, setDefaultsOnInsert: true }, // options
+                    (err, succ) => {
+                        if (err) {
+                            console.log('------------------ Message writing to database failed')
+                            res.json({ "isSuccess": false, "comment": `Message writing to databse failed` })
+                        } else {
+                            io.emit(mail.initiator, mailSentStatus)
+                            res.json({ "isSuccess": true, "comment": mailSentStatus })
+                        }
+                    }
+                )
+            } else {
+                console.log(`Something went wrong with recipient: ${mail.to}`)
+                res.json({ "isSuccess": false, "comment": `Something went wrong with recipient: ${mail.to}` })
+            }
+        })
+    }
+}
+
+module.exports = ProcessSingleEmail

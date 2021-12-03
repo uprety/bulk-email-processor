@@ -24,27 +24,22 @@ const LoginForm = (props) => {
             "password": state.password,
         }
         axios.post(process.env.REACT_APP_SERVER_URL + '/api/signin', payload, {withCredentials: true})
-            .then(function (response) {
+            .then( (response) => {
                 if (response.status === 200) {
                     setState(prevState => ({
                         ...prevState,
                         'successMessage': 'Login successful. Redirecting to home page..'
                     }))
-                    // localStorage.setItem(ACCESS_TOKEN_NAME, response.data.token);
                     redirectToHome();
                     props.showError(null)
                 }
-                else if (response.code === 204) {
-                    props.showError("Username and password do not match");
-                }
-                else {
-                    props.showError("Username does not exists");
+                else{
+                    props.showError(response.data.comment);
                 }
             })
-            .catch(function (error) {
-                props.showError(error.response.data.comment);
-                console.log(error);
-            });
+            .catch(err => {
+                props.showError('Server Error');
+            })
     }
     const redirectToHome = () => {
         props.updateTitle('Send Bulk Mail Home')

@@ -17,12 +17,12 @@ const ProcessXlsxFile = (props) => {
             <p></p>
 
             <h3>Select your emali template</h3>
-            <Form.Select aria-label="Choose a Mail Template" onChange={props.handleSelectTemplateId}>
-                {props.emailTemplates.map(emailTemplate => (
-                    <option key={emailTemplate.id} templateid={emailTemplate.id} value={emailTemplate.id + '. ' + emailTemplate.subject}>{emailTemplate.id + '. ' + emailTemplate.subject}</option>
-                )
-                )}
-            </Form.Select>
+                <Form.Select aria-label="Choose a Mail Template" onChange={props.handleSelectTemplateId}>
+                    {props.emailTemplates.map(emailTemplate => (
+                        <option key={emailTemplate.id} templateid={emailTemplate.id} value={emailTemplate.id + '. ' + emailTemplate.subject}>{emailTemplate.id + '. ' + emailTemplate.subject}</option>
+                    )
+                    )}
+                </Form.Select>
             <p></p>
             <Button className='mt-3' variant="primary" onClick={props.handleSubmitBtn}>Submit</Button>{' '}
 

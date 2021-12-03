@@ -6,6 +6,7 @@ const SendTokenEmail = require('../sendMail/SendTokenEmail')
 const UserModel = require('../models/UserModel');
 const MailTemplateSchema = require('../models/MailTemplate')
 const SendBulkMailQueueJob = require('../sendMail/SendBulkMailQueueJob')
+const MailSentLog = require('../models/MailSentLog')
 
 exports.SignUp = async (req, res) => {
     const { username, email, password } = req.body
@@ -87,7 +88,7 @@ exports.SendEmailTemplateToClient = async (req, res) => {
         mailTemplates.forEach(mailTemplate => {
             mailBody.push({ id: mailTemplate.templateNumber, subject: mailTemplate.subject })
         })
-        res.json({ "isSuccess": true, "comment": "Authorized to send bulk email", "mailTemplates": mailBody })
+        res.json({ "isSuccess": true, "comment": "Authorized to send bulk email", "mailTemplates": mailBody, "initiator": req.session.email })
     })
 }
 
@@ -104,9 +105,29 @@ exports.ProcessMailJobs = async (req, res) => {
                 res.status(404).json({ "isSuccess": false, "comment": "Tempalte Not Found in Database." })
             } else {
                 SendBulkMailQueueJob(mailTemplate._doc, body.recipients, req.session.email)
-                res.json({ "isSuccess": true, "comment": "Successful Received the Task" })
+                res.json({ "isSuccess": true, "comment": "Success! The task has been schudled for bulk execcution" })
             }
         }
         )
     }
+}
+
+
+exports.GetSentEmailLogs = async(req, res) => {
+    const email = req.session.email
+
+    MailSentLog.findOne({ email }, (err, response) => {
+        if (err) {
+            res.status(404).json({ "isSuccess": false, "comment": "No logs found yet" })
+            console.log(err)
+        } else {
+            const sentLogs = []
+            if (response && response._doc) {
+                response._doc.logs.forEach((item) => sentLogs.push(`${item}`))
+                res.json({ "isSuccess": true, "comment": "Logs found", sentLogs })
+            } else {
+                res.json({ "isSuccess": true, "comment": "No Logs found", sentLogs })
+            }
+        }
+    })
 }
