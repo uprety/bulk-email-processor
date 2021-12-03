@@ -16,6 +16,6 @@ services:
             - BEP_MAILTRAP_CREDENTIAL=${BEP_MAILTRAP_CREDENTIAL}
 
             - CLOUDAMQP_URL=${CLOUDAMQP_URL}
-
+            - PORT=${PORT}
 
 

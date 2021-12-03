@@ -8,7 +8,7 @@ transporter.verify((error, success) => {
     if (error) {
         console.log(error);
     } else {
-        console.log("Mail Server is ready to take the task");
+        console.log("Mail Server is ready");
     }
 });
 

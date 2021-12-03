@@ -18,7 +18,10 @@ RUN npm run build
 
 WORKDIR /app/backend
 
-EXPOSE 3030/tcp
-EXPOSE 3030/udp
+# This will be used by heroku for deploying
+ENV PORT=${PORT:-3030}
+
+EXPOSE ${PORT}/tcp
+EXPOSE ${PORT}/udp
 
 CMD [ "npm", "run", "startProd"]
