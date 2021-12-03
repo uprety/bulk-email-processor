@@ -23,7 +23,7 @@ const LoginForm = (props) => {
             "email": state.email,
             "password": state.password,
         }
-        axios.post(process.env.REACT_APP_SERVER_URL + '/api/signin', payload, {withCredentials: true})
+        axios.post(window.location.origin + '/api/signin', payload, {withCredentials: true})
             .then( (response) => {
                 if (response.status === 200) {
                     setState(prevState => ({

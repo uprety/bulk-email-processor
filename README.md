@@ -1,6 +1,6 @@
 # Bulk Email Processor
 
-This is a webapp fo sending email to bulk email receipants present in excel file.
+This is a webapp for sending email to bulk email receipants present in excel file.
 
 ## Getting Started
 1. Get the repo in your local directory.
@@ -11,14 +11,12 @@ This is a webapp fo sending email to bulk email receipants present in excel file
 BEP_ENV='development or production'
 BEP_SESSION_SECRET='a long random characters'
 BEB_MONGODB_URI='your mongodb uri such as mongodb://localhost:27017/mydbname'
-BEP_SERVER_URL="http://localhost:3333"
+BEP_SERVER_URL="http://localhost:3030"
 
 BEP_MAILTRAP_HOST="smtp.mailtrap.io for mailtrap"
 BEP_MAILTRAP_USERNAME="264f1e1559d20d"
 BEP_MAILTRAP_PASSWORD="1a9cacb884f386"
-BEP_CLIENT_HOST="localhsot:3333"
 
-REACT_APP_SERVER_URL="http://localhost:3333"
 ```
 4. Run frontend application
 ```
@@ -33,5 +31,5 @@ cd backend
 npm install
 npm run start
 ```
-6. Open the following url to open the webapp
->[localhost:3333](http://localhost:3333)
+6. By default the server run at 3030 port. Open the following url to open the webapp.
+>[localhost:3030](http://localhost:3030)
