@@ -1,0 +1,23 @@
+version: "3.3"
+
+services:
+    bulk-email-processor:
+        image: bulk-email-processor
+        ports:
+            - "3030:3030"
+        environment:
+            - BEP_SESSION_SECRET=${BEP_SESSION_SECRET}
+            - BEP_MONGODB_URL=${BEP_MONGODB_URL}
+            - BEP_SERVER_URL=${BEP_SERVER_URL}
+            - BEP_MAKE_MIGRATION=${BEP_MAKE_MIGRATION}
+            - BEP_MAILTRAP_HOST=${BEP_MAILTRAP_HOST}
+            - BEP_MAILTRAP_USERNAME=${BEP_MAILTRAP_USERNAME}
+            - BEP_MAILTRAP_PASSWORD=${BEP_MAILTRAP_PASSWORD}
+            - BEP_MAILTRAP_PORT=${BEP_MAILTRAP_PORT}
+            - BEP_CLIENT_HOST=${BEP_CLIENT_HOST}
+            - CLOUDAMQP_URL=${CLOUDAMQP_URL}
+            - REACT_APP_SERVER_URL=${REACT_APP_SERVER_URL}
+            - REACT_APP_URL=${REACT_APP_URL}
+
+
+
