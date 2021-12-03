@@ -10,7 +10,7 @@ const SendBulkMailQueueJob = async (mailTemplate, recipients, initiator) => {
         }
 
         // Step 2: Create Channel
-        connection.createChannel((channelError, channel) => {
+         connection.createChannel(async (channelError, channel) => {
             if (channelError) {
                 throw channelError
             }
@@ -19,10 +19,9 @@ const SendBulkMailQueueJob = async (mailTemplate, recipients, initiator) => {
             channel.assertQueue(QUEUE)
 
             // Send message to queue
-            recipients.forEach(recipient => {
+            await recipients.forEach(async recipient => {
                 const mail = { ...mailTemplate, to: recipient, initiator }
                 channel.sendToQueue(QUEUE, Buffer.from(JSON.stringify(mail)))
-                console.log(`Send ${mail}`)
             })
         })
     })

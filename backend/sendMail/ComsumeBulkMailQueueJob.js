@@ -1,9 +1,6 @@
-const ampq = require('amqplib/callback_api');
-const transporter = require("./config/transporter")
-const MailTemplateSchema = require('../models/MailTemplate')
-const MailSentLog = require('../models/MailSentLog')
+const ampq = require('amqplib/callback_api')
+const axios = require('axios')
 
-const ampq = require('amqplib/callback_api');
 
 // Step 1: Create Connection
 ampq.connect(process.env.CLOUDAMQP_URL, (connError, connection) => {
@@ -22,15 +19,25 @@ ampq.connect(process.env.CLOUDAMQP_URL, (connError, connection) => {
         channel.assertQueue(QUEUE)
 
         // Receive message from queue
-        channel.consume(QUEUE, (mailbuffer) => {
+        channel.consume(QUEUE, async (mailbuffer) => {
+            console.log(`${process.env.BEP_SERVER_URL}/process-single-email`)
             mail = JSON.parse(mailbuffer.content.toString())
 
-            // Comlete the mail task
-            transporter.sendMail(mail, (error, info) => {
-                console.log(`Message sent: ${info.messageId} to ${to}`);
-            })
+            // Send reuest here with data as mail // session id
+            await axios.post(`${process.env.BEP_SERVER_URL}/process-single-email`, mail)
+                .then(data => {
+                    console.log("------------------     success consume")
+                    console.log(data.data.comment)
+                })
+                .catch(err => {
+                    console.log("------------------     error consume")
+                    // console.log(data.data.comment)
+                })
+            setTimeout(function(){
+                channel.ack(mailbuffer);
+              },500);
         })
     }, {
-        noAck: true // For deleting the received queue
+        // noAck: true // For deleting the received queue as soon as  received
     })
 })

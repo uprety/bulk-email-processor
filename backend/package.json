@@ -7,13 +7,14 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon app.js",
-    "startProd": "node app.js",
-    "seed": "cd mailTemplate && node AddTemplateMailToDatabase.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "startProd": "nodemon -x 'node app.js || (sleep 1; touch app.js)'",
+    "migrate": "cd mailTemplate && node AddTemplateMailToDatabase.js",
+    "consume": "cd sendMail && node ComsumeBulkMailQueueJob.js"
   },
   "license": "ISC",
   "dependencies": {
     "amqplib": "^0.8.0",
+    "axios": "^0.24.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "connect-mongo": "^4.6.0",
@@ -23,6 +24,8 @@
     "mongodb": "^4.2.0",
     "mongoose": "^6.0.13",
     "nodemailer": "^6.7.1",
+    "pm2": "^5.1.2",
+    "socket.io": "^4.4.0",
     "uuid": "^8.3.2"
   },
   "devDependencies": {
