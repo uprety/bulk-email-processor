@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Table from 'react-bootstrap/Table'
 import axios from 'axios'
 import io from 'socket.io-client'
 
 const socket = io(window.location.origin)
+const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)   
 
 const EmailLogs = (props) => {
+  const myRef = useRef(null)
   const [tableLogs, setTableLogs] = useState([]);
 
   useEffect(() => {
@@ -18,12 +20,11 @@ const EmailLogs = (props) => {
 
 
   useEffect(() => {
-    console.log(props.initiator)
     socket.on(props.initiator, log => {
       if (log) {
         setTableLogs([...tableLogs, log])
+        scrollToRef(myRef)
       }
-      console.log(`${props.initiator} ${log}`)
     });
 
   return () => {
@@ -48,6 +49,7 @@ return (
         </tbody>
       </Table>
     </div>
+    <div ref={myRef}></div> 
   </>
 )
 }
