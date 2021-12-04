@@ -33,8 +33,9 @@ cd bulk-email-processor
 cd backend
 npm install 
 ```
-If you have not loaded Emali Template into Databse, do the seeding with `npm run migrate` command.<br/>Then **`npm run start`** to run the server 
-If you want not in development environment and want to consume message manually run  `npm run consume`. 
+>If you want not in development environment, consume message queue by running  `npm run consumeQueue`.<br/>
+>If you have not loaded Emali Template into Databse, do the seeding with `npm run seedMailTemplate` command.<br/>
+>>Then **`npm run start`** to run the server 
 
 5. In new terminal inside `bulk-email-processor` directory run frontend application:
 ```
