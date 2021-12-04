@@ -45,8 +45,8 @@ cd frontend
 npm install
 npm run start
 ```
-6. By default the server run at 3030 port. Open the following url to open the webapp.
->[localhost:3030](http://localhost:3030)
+6. By default the react server run at 3000 port and backend port is 3030. Open the following url to open the webapp.
+>[localhost:3000](http://localhost:3000)
 
 ## Using docker
 First complete upto step 3 given above. <br/>
