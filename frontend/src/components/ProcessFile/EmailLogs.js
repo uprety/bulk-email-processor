@@ -43,7 +43,7 @@ return (
         <tbody>
           {tableLogs.map((tableLog, index) => (
             <tr key={index} style={{ textAlign: 'left' }}>
-              <td>{`${index}. ${tableLog}`}</td>
+              <td>{index}. To <span className="text-primary">{tableLog.to}</span> from <span className="text-info">{tableLog.from}</span> Status <span className="text-success">{tableLog.status}</span></td>
             </tr>
           ))}
         </tbody>
