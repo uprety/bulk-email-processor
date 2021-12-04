@@ -5,6 +5,9 @@ This is a webapp for sending email to bulk email receipants present in excel fil
 ## Getting Started
 1. Get the repo in your local directory.
 >`git clone https://github.com/uprety/bulk-email-processor.git`
+>```
+>cd bulk-email-processor
+>```
 
 2. You need the following services in order to work:
 ```
@@ -13,7 +16,7 @@ This is a webapp for sending email to bulk email receipants present in excel fil
 3. Message Broker Server
 ```
 
-3. Configure all the folloing environmental variables.
+3. Configure all the following environmental variables in your current session.
 ```
 BEP_SERVER_URL="this app url where end user hit the addresss for backend; it is usually http://localhost:3030 in development"
 BEP_ENV="development"
@@ -26,9 +29,8 @@ BEP_MAILTRAP_CREDENTIAL="smtp://<mailtrap username>:<mailtrap password>@smtp.mai
 CLOUDAMQP_URL="your message broker URL with credentials"
 ```
 
-4. In do following to run backend app packages: 
+4. Install backend app packages: 
 ```
-cd bulk-email-processor
 cd backend
 npm install 
 ```
@@ -44,6 +46,21 @@ npm run start
 ```
 6. By default the server run at 3030 port. Open the following url to open the webapp.
 >[localhost:3030](http://localhost:3030)
+
+## Using docker
+First complete upto step 3 given above. <br/>
+Create image name `upreti/bulk-email-processor`:
+```
+docker build . -t upreti/bulk-email-processor
+```
+Then configure `docker-compose.yml` as per your requirement if needed. 
+Create docker container:
+```
+docker-compose up
+```
+
+
+
 
 ## Current Design
 ![Screenshot](./img/current_design.jpg)
