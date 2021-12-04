@@ -18,7 +18,11 @@ const ProcessSingleEmail = (io) => {
         // Comlete the mail task
         transporter.sendMail(mail, (error, info) => {
             if (!error && info) {
-                const mailSentStatus = `Success!   From   ${info.envelope.from}   to   ${info.envelope.to}.    Mail Server Response Rode: ${info.response}`;
+                const mailSentStatus = {
+                    to: info.envelope.to[0],
+                    from: info.envelope.from,
+                    status: info.response
+                }
 
 
                 MailSentLog.findOneAndUpdate(
@@ -29,6 +33,7 @@ const ProcessSingleEmail = (io) => {
                         if (err) {
                             console.log('------------------ Message writing to database failed')
                             res.json({ "isSuccess": false, "comment": `Message writing to databse failed` })
+                            console.log(err)
                         } else {
                             io.emit(mail.initiator, mailSentStatus)
                             res.json({ "isSuccess": true, "comment": mailSentStatus })
