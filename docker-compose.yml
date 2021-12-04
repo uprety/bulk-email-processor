@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
     bulk-email-processor:
-        image: bulk-email-processor
+        image: upreti/bulk-email-processor
         ports:
             - "3030:3030"
         environment:
@@ -16,6 +16,3 @@ services:
             - BEP_MAILTRAP_CREDENTIAL=${BEP_MAILTRAP_CREDENTIAL}
 
             - CLOUDAMQP_URL=${CLOUDAMQP_URL}
-            - PORT=${PORT}
-
-

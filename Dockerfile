@@ -18,10 +18,17 @@ RUN npm run build
 
 WORKDIR /app/backend
 
-# This will be used by heroku for deploying
+# The port will be assigned by heroku for running container
 ENV PORT=${PORT:-3030}
 
 EXPOSE ${PORT}/tcp
 EXPOSE ${PORT}/udp
 
+# For seeding mail template into databse
+# CMD [ "npm", "run", "seedMailTemplate"] 
+
+# For consuming queue
+# CMD [ "npm", "run", "consumeQueue"]
+
+# Running the main app
 CMD [ "npm", "run", "startProd"]
