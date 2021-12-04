@@ -7,7 +7,7 @@
   "main": "index.js",
   "scripts": {
     "start": "nodemon app.js",
-    "startProd": "nodemon -x 'node app.js || (sleep 1; touch app.js)'",
+    "startProd": "npm run consumeQueue & nodemon -x 'node app.js || (sleep 1; touch app.js)'",
     "seedMailTemplate": "cd mailTemplate && node AddTemplateMailToDatabase.js",
     "consumeQueue": "cd sendMail && node ComsumeBulkMailQueueJob.js"
   },
