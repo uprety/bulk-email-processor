@@ -32,7 +32,7 @@ cd bulk-email-processor
 cd backend
 npm install 
 ```
->If you want not in development environment, consume message queue by running  `npm run consumeQueue`.<br/>
+>If you are not in development environment, consume message queue by running  `npm run consumeQueue`.<br/>
 >If you have not loaded Emali Template into Databse, do the seeding with `npm run seedMailTemplate` command.<br/>
 >>Then **`npm run start`** to run the server 
 
