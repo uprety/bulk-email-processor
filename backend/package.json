@@ -8,8 +8,8 @@
   "scripts": {
     "start": "nodemon app.js",
     "startProd": "nodemon -x 'node app.js || (sleep 1; touch app.js)'",
-    "migrate": "cd mailTemplate && node AddTemplateMailToDatabase.js",
-    "consume": "cd sendMail && node ComsumeBulkMailQueueJob.js"
+    "seedMailTemplate": "cd mailTemplate && node AddTemplateMailToDatabase.js",
+    "consumeQueue": "cd sendMail && node ComsumeBulkMailQueueJob.js"
   },
   "license": "ISC",
   "dependencies": {
@@ -24,7 +24,6 @@
     "mongodb": "^4.2.0",
     "mongoose": "^6.0.13",
     "nodemailer": "^6.7.1",
-    "pm2": "^5.1.2",
     "socket.io": "^4.4.0",
     "uuid": "^8.3.2"
   },
