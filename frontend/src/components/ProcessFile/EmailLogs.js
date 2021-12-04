@@ -3,13 +3,13 @@ import Table from 'react-bootstrap/Table'
 import axios from 'axios'
 import io from 'socket.io-client'
 
-const socket = io(process.env.REACT_APP_SERVER_URL)
+const socket = io(window.location.origin)
 
 const EmailLogs = (props) => {
   const [tableLogs, setTableLogs] = useState([]);
 
   useEffect(() => {
-    axios.get(process.env.REACT_APP_SERVER_URL + '/api/get-sent-email-logs', { withCredentials: true })
+    axios.get(window.location.origin + '/api/get-sent-email-logs', { withCredentials: true })
       .then((response) => {
         // Sent logs is a list 
         setTableLogs(response.data.sentLogs)

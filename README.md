@@ -1,6 +1,6 @@
 # Bulk Email Processor
 
-This is a webapp fo sending email to bulk email receipants present in excel file.
+This is a webapp for sending email to bulk email receipants present in excel file.
 
 ## Getting Started
 1. Get the repo in your local directory.
@@ -24,7 +24,6 @@ BEP_MONGODB_URL="your mongoDb URL with credentials"
 BEP_MAILTRAP_CREDENTIAL="smtp://<mailtrap username>:<mailtrap password>@smtp.mailtrap.io:2525?pool=true&maxConnection=1&rateDelta=20&rateLimit=5"
 
 CLOUDAMQP_URL="your message broker URL with credentials"
-
 ```
 
 4. In do following to run backend app packages: 
@@ -43,8 +42,8 @@ cd frontend
 npm install
 npm run start
 ```
-
-6. Open the following url to open the webapp [localhost:3000](http://localhost:3000)
+6. By default the server run at 3030 port. Open the following url to open the webapp.
+>[localhost:3030](http://localhost:3030)
 
 ## Current Design
 ![Screenshot](./img/current_design.jpg)

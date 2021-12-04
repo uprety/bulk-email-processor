@@ -1,7 +1,6 @@
 const bcrypt = require('bcrypt')
 const { v4: uuid } = require('uuid')
 
-const UserModel = require('../models/UserModel');
 const transporter = require('../sendMail/config/transporter');
 const MailSentLog = require('../models/MailSentLog')
 
@@ -9,8 +8,12 @@ const MailSentLog = require('../models/MailSentLog')
 const ProcessSingleEmail = (io) => {
     return async(req, res) => {
         req.session.email
-        const mail = req.body
+        let mail = req.body
         
+        // modify the mail body here
+        mail.html = mail.html.replaceAll('{{receiver}}', mail.to)
+        mail.text = mail.text.replaceAll('{{receiver}}', mail.to)
+
 
         // Comlete the mail task
         transporter.sendMail(mail, (error, info) => {

@@ -27,7 +27,7 @@ const RegistrationForm = (props) => {
                 "email": state.email,
                 "password": state.password,
             }
-            axios.post(`${process.env.REACT_APP_SERVER_URL}/api/signup`, payload, { withCredentials: true })
+            axios.post(`${window.location.origin}/api/signup`, payload, { withCredentials: true })
                 .then((response) => {
                     if (response.status === 200) {
                         setState(prevState => ({

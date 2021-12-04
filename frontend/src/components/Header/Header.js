@@ -21,7 +21,7 @@ const Header = (props) => {
         }
     }
     const handleLogout = () => {
-        axios.get(process.env.REACT_APP_SERVER_URL + '/api/logout', { withCredentials: true})
+        axios.get(window.location.origin + '/api/logout', { withCredentials: true})
         .then( (response) => {
           if (response.status === 200) {
             

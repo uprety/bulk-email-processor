@@ -38,7 +38,7 @@ const Home = (props) => {
       recipients,
       selectedTemplateId,
     }
-    axios.post(process.env.REACT_APP_SERVER_URL + '/api/process-mail-jobs', payload, { withCredentials: true })
+    axios.post(window.location.origin + '/api/process-mail-jobs', payload, { withCredentials: true })
       .then((response) => {
         props.showError(response.data.comment)
       })
@@ -75,7 +75,7 @@ const Home = (props) => {
 
   // For receiving list of email template
   useEffect(() => {
-    axios.get(process.env.REACT_APP_SERVER_URL + '/api/am-I-allowed-to-send-mail', { withCredentials: true })
+    axios.get(window.location.origin + '/api/am-I-allowed-to-send-mail', { withCredentials: true })
       .then((response) => {
         if (response.status !== 200) {
           redirectToLogin()

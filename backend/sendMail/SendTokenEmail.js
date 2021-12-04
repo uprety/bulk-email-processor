@@ -7,8 +7,8 @@ const SendTokenEmail = async (to, tokenURL) => {
     from: '"No Reply 👻" <no-reply@bulkemailxyz.com>',
     to: to,
     subject: "Email Verification",
-    text: `Bulk Email Processor account activation link: ${tokenURL}`,
-    html: `<p>Bulk Email Processor account activation link: <a href='${tokenURL}'>${tokenURL}</a></p>`, 
+    text: `Hello ${to}, Your Bulk Email Processor account activation link: ${tokenURL}`,
+    html: `<h2>Hello ${to},</h2><p>Bulk Email Processor account activation link: <a href='${tokenURL}'>${tokenURL}</a></p>`, 
   });
 
   console.log("Message sent: %s", info.messageId);
