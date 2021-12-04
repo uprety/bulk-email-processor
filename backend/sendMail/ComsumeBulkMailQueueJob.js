@@ -24,6 +24,7 @@ ampq.connect(process.env.CLOUDAMQP_URL, (connError, connection) => {
             mail = JSON.parse(mailbuffer.content.toString())
 
             // Send reuest here with data as mail // session id
+            await new Promise(resolve => setTimeout(resolve, Math.random() * 1400))
             await axios.post(`${process.env.BEP_SERVER_URL}/process-single-email`, mail)
                 .then(data => {
                     console.log("------------------     success consume")
