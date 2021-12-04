@@ -15,19 +15,22 @@ const AddTemplateMailToDatabase = async () => {
         connectTimeoutMS: 5000,
     })
         .then((connection) => {
-            console.log("Connected to database")
-        })
-        .catch(err => console.log(err))
 
-    // Adding temlate to databse
-    MailTemplate.forEach((template) => {
-        mail = new MailTemplateSchema({
-            ...template
+            // Adding temlate to databse
+            console.log("Connected to database")
+            MailTemplate.forEach((template) => {
+                mail = new MailTemplateSchema({
+                    ...template
+                })
+                mail.save()
+                console.log(`Template models ${template.templateNumber} added to Database`)
+            });
+            process.exit()
         })
-        mail.save()
-        console.log(`Template models ${template.templateNumber} added to Database`)
-    });
-    console.log("You may end the task")
+        .catch(err => {
+            console.log(err)
+        })
+
 }
 
 AddTemplateMailToDatabase()
