@@ -36,6 +36,7 @@ npm install
 ```
 >If you are not in development environment, consume message queue by running  `npm run consumeQueue`.<br/>
 >If you have not loaded Emali Template into Databse, do the seeding with `npm run seedMailTemplate` command.<br/>
+>Template Mail Directory is at [backend/mailTemplate](backend/mailTemplate).
 >>Then **`npm run start`** to run the server 
 
 5. In new terminal inside `bulk-email-processor` directory run frontend application:
@@ -58,8 +59,12 @@ Create docker container:
 ```
 docker-compose up
 ```
-
-
+## Using
+1. Login to the app using correct credential.
+2. Upload a excel file. <br/>
+>This app support excel file. The file is processed in the frontend and extract email from each available cell.
+3. Select a template
+4. Click Submit button. 
 
 
 ## Current Design
