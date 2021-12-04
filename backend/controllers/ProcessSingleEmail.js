@@ -18,7 +18,7 @@ const ProcessSingleEmail = (io) => {
         // Comlete the mail task
         transporter.sendMail(mail, (error, info) => {
             if (!error && info) {
-                const mailSentStatus = `Message sent from ${info.envelope.from} to ${info.envelope.to}. With response code: ${info.response}`;
+                const mailSentStatus = `Success!   From   ${info.envelope.from}   to   ${info.envelope.to}.    Mail Server Response Rode: ${info.response}`;
 
 
                 MailSentLog.findOneAndUpdate(
