@@ -123,7 +123,7 @@ exports.GetSentEmailLogs = async(req, res) => {
         } else {
             const sentLogs = []
             if (response && response._doc) {
-                response._doc.logs.forEach((item) => sentLogs.push(`${item}`))
+                response._doc.logs.forEach((item) => sentLogs.push(item))
                 res.json({ "isSuccess": true, "comment": "Logs found", sentLogs })
             } else {
                 res.json({ "isSuccess": true, "comment": "No Logs found", sentLogs })
