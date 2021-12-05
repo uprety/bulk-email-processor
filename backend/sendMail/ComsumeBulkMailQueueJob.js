@@ -3,13 +3,13 @@ const axios = require('axios')
 
 
 // Step 1: Create Connection
-ampq.connect(process.env.CLOUDAMQP_URL, (connError, connection) => {
+ampq.connect(process.env.CLOUDAMQP_URL, async (connError, connection) => {
     if (connError) {
         throw connError;
     }
 
     // Step 2: Create Channel
-    connection.createChannel((channelError, channel) => {
+    connection.createChannel(async (channelError, channel) => {
         if (channelError) {
             throw channelError
         }
@@ -17,7 +17,7 @@ ampq.connect(process.env.CLOUDAMQP_URL, (connError, connection) => {
         // Step 3: Assert Queue
         const QUEUE = 'bulkemail'
         channel.assertQueue(QUEUE)
-        channel.prefetch(2)
+        channel.prefetch(1)
 
         // Receive message from queue
         channel.consume(QUEUE, async (mailbuffer) => {
@@ -29,8 +29,9 @@ ampq.connect(process.env.CLOUDAMQP_URL, (connError, connection) => {
                 .catch(err => {
                     console.log("------------------error consume mail")
                 })
+                channel.ack(mailbuffer)
         })
     }, {
-        noAck: true // For deleting the received queue as soon as  received
+        // noAck: true // For deleting the received queue as soon as  received
     })
 })
