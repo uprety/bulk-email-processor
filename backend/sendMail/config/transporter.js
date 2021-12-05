@@ -6,7 +6,8 @@ const transporter = nodemailer.createTransport(process.env.BEP_MAILTRAP_CREDENTI
 
 transporter.verify((error, success) => {
     if (error) {
-        console.log(error);
+        console.log("Mail server not ready")
+        console.log(error)
     } else {
         console.log("Mail Server is ready");
     }

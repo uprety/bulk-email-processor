@@ -97,6 +97,7 @@ exports.ProcessMailJobs = async (req, res) => {
         recipients: req.body.recipients,
         selectedTemplateId: req.body.selectedTemplateId,
     }
+    console.log("-----------------------------job received from client to send bulk mail ")
     if (!body.recipients || body.selectedTemplateId === '') {
         res.status(400).json({ "isSuccess": false, "comment": "Invalid payload provided" })
     } else {
@@ -119,7 +120,6 @@ exports.GetSentEmailLogs = async(req, res) => {
     MailSentLog.findOne({ email }, (err, response) => {
         if (err) {
             res.status(404).json({ "isSuccess": false, "comment": "No logs found yet" })
-            console.log(err)
         } else {
             const sentLogs = []
             if (response && response._doc) {

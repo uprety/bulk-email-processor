@@ -43,7 +43,6 @@ const Home = (props) => {
         props.showError(response.data.comment)
       })
       .catch(function (error) {
-        console.log(error)
         props.showError('Failed to submit task')
       });
   }

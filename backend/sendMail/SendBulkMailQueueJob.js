@@ -23,6 +23,7 @@ const SendBulkMailQueueJob = async (mailTemplate, recipients, initiator) => {
                 const mail = { ...mailTemplate, to: recipient, initiator }
                 channel.sendToQueue(QUEUE, Buffer.from(JSON.stringify(mail)))
             })
+            console.log(`Sent job to queue to send mail to ${recipients}`)
         })
     })
 }

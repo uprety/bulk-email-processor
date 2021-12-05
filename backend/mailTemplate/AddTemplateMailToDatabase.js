@@ -25,11 +25,13 @@ const AddTemplateMailToDatabase = async () => {
                 mail.save()
                 console.log(`Template models ${template.templateNumber} added to Database`)
             });
-            process.exit()
         })
         .catch(err => {
             console.log(err)
         })
+
+        await new Promise(resolve => setTimeout(resolve, 1000)) // Wait for a second before closing program
+        process.exit()
 
 }
 
