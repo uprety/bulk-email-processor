@@ -1,6 +1,3 @@
-const bcrypt = require('bcrypt')
-const { v4: uuid } = require('uuid')
-
 const transporter = require('../sendMail/config/transporter');
 const MailSentLog = require('../models/MailSentLog')
 
@@ -11,9 +8,11 @@ const ProcessSingleEmail = (io) => {
         let mail = req.body
         
         // modify the mail body here
+
         mail.html = mail.html.replaceAll('{{receiver}}', mail.to)
         mail.text = mail.text.replaceAll('{{receiver}}', mail.to)
 
+        console.log(`-----------Job received from the message broker to send email to ${mail.to}------------`)
 
         // Comlete the mail task
         transporter.sendMail(mail, (error, info) => {
@@ -31,9 +30,9 @@ const ProcessSingleEmail = (io) => {
                     { upsert: true, new: true, setDefaultsOnInsert: true }, // options
                     (err, succ) => {
                         if (err) {
-                            console.log('------------------ Message writing to database failed')
-                            res.json({ "isSuccess": false, "comment": `Message writing to databse failed` })
-                            console.log(err)
+                            const errMessage = `------------------ Writing mail send log to database of ${mail.to}`
+                            console.log(errMessage)
+                            res.json({ "isSuccess": false, "comment": errMessage })
                         } else {
                             io.emit(mail.initiator, mailSentStatus)
                             res.json({ "isSuccess": true, "comment": mailSentStatus })
@@ -42,7 +41,7 @@ const ProcessSingleEmail = (io) => {
                 )
             } else {
                 console.log(`Something went wrong with recipient: ${mail.to}`)
-                res.json({ "isSuccess": false, "comment": `Something went wrong with recipient: ${mail.to}` })
+                res.json({ "isSuccess": false, "comment": `Something went wrong with recipient: ${mail.to} while sending emal` })
             }
         })
     }

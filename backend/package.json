@@ -6,7 +6,7 @@
   "description": "A backend for handling processing a bulk of email",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon app.js",
+    "start": "BEP_ENV=prod nodemon app.js",
     "startProd": "npm run consumeQueue & nodemon -x 'node app.js || (sleep 1; touch app.js)'",
     "seedMailTemplate": "cd mailTemplate && node AddTemplateMailToDatabase.js",
     "consumeQueue": "cd sendMail && node ComsumeBulkMailQueueJob.js"
