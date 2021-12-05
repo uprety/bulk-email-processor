@@ -31,4 +31,4 @@ EXPOSE ${PORT}/udp
 # CMD [ "npm", "run", "consumeQueue"]
 
 # Running the main app
-CMD [ "npm", "run", "startProd"]
+CMD [ "npm", "run", "concurrently"]
