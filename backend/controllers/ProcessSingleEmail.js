@@ -12,7 +12,7 @@ const ProcessSingleEmail = (io) => {
         mail.html = mail.html.replaceAll('{{receiver}}', mail.to)
         mail.text = mail.text.replaceAll('{{receiver}}', mail.to)
 
-        console.log(`-----------Job received from the message broker to send email to ${mail.to}------------`)
+        console.log(`-----------Sending mail to ${mail.to}------------`)
 
         // Comlete the mail task
         transporter.sendMail(mail, (error, info) => {

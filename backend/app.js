@@ -25,18 +25,9 @@ const io = new Server(server, {
 
 // set morgan to log info about our requests for development use only
 if (process.env.BEP_ENV === 'development') {
-
   console.log("you are here at development")
   const logger = require("morgan") 
   app.use(logger("dev"));
-
-  // Running message queue consume in background for development only
-  // This need to run seperate container. For that run following
-  // npm run consume
-  const spawn = require('child_process').spawn
-  spawn('node', ['sendMail/ComsumeBulkMailQueueJob.js'], {
-    detached: true
-  }).unref();
 
 } else {
   console.log("You are running a production version")
